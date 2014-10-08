@@ -1,0 +1,161 @@
+fileFormatVersion: 2
+guid: 629a4625e85a309448bd66e132594d69
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Stickman_Body
+    21300002: Stickman_rArm
+    21300004: Stickman_rElb
+    21300006: Stickman_Body
+    21300008: Stickman_lElb
+    21300010: Stickman_lArm
+    21300012: Stickman_rThigh
+    21300014: Stickman_lThigh
+    21300016: Stickman_rLeg
+    21300018: Stickman_lLeg
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: Stickman_Body
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 69
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_rArm
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 67
+        width: 2
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_rElb
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 63
+        width: 19
+        height: 2
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_Body
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 35
+        width: 2
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_lElb
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 62
+        width: 19
+        height: 2
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_lArm
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 67
+        width: 2
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_rThigh
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 21
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_lThigh
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 21
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_rLeg
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 2
+        width: 2
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Stickman_lLeg
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 2
+        width: 2
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
