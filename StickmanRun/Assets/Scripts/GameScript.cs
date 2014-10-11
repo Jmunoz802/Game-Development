@@ -1,8 +1,8 @@
 ﻿// ================================================
 // File: GameScript.cs
 // Version: 1.0.1
-// Desc: Attachable to Terrain GameObject in 
-// Scene_Demo.
+// Desc: Controls major gameplay functionality for the 
+// 		StickmanRun action scene
 // ================================================
 
 using UnityEngine;
@@ -22,6 +22,11 @@ public class GameScript : MonoBehaviour
     {
         get { return playerScript; }
     }
+
+	public PlatformScript PlatformScript
+	{
+		get{ return platformScript; }
+	}
 
     public StateMachine<GameScript> StateMachine
     {
@@ -54,6 +59,10 @@ public class GameScript : MonoBehaviour
 
 		// Get platform Script
 		platformScript = GetComponent<PlatformScript>();
+		if(platformScript == null)
+		{
+			Debug.LogError("GameScript.cs: PlatformScript not found on this object!");
+		}
 		
     }
 
@@ -76,6 +85,9 @@ public class GameScript : MonoBehaviour
 		platformScript.PlatformSpeed = 0.09f;
 		platformScript.activePlatforms = true;
 		platformScript.activeSpawn = true;
+
+		//Start timer for the round
+		Statistics.Instance.startTime();
 	}
 	
 	// Update is called once per frame.
@@ -86,20 +98,11 @@ public class GameScript : MonoBehaviour
 
         // Update StateMachine.
         stateMachine.Update();
-
-		if(InputManager.Instance.CurrentKeyboardState.IsKeyDown(KeyCode.Escape))
-			Application.Quit();
-		else if(InputManager.Instance.CurrentKeyboardState.IsKeyDown(KeyCode.R))
-			Application.LoadLevel("StickmanRun");
 	}
 
     private void OnGUI()
     {
-        if (stateMachine.IsInState(GameState_OnPause.Instance))
-        {
-            GUI.Box(messageRect, "Game Paused");
-        }
-        else if (stateMachine.IsInState(GameState_OnMenu.Instance))
+        if (stateMachine.IsInState(GameState_OnMenu.Instance))
         {
             GUI.Box(messageRect, "Menu goes here.");
         }

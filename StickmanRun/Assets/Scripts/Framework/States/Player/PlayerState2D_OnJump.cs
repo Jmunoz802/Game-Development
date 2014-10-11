@@ -1,7 +1,8 @@
 // ================================================
 // File: PlayerState2D_OnJump.cs
-// Version: 1.0.1
-// Desc: Singleton. Do not attach to Gameobject.
+// Version: 1.0.2
+// Desc: Singleton state class inheriting from Istate< >. Do not attach to Gameobject.
+//			Applies constant reducing force the longer a key is held down
 // ================================================
 
 using UnityEngine;
@@ -14,9 +15,6 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
 	private float force;// = 700f;
 	private float cumulativeForce;
 
-	public float baseY = 0;
-	public float topY=0;
-
 	private static PlayerState2D_OnJump instance;
 
     // Properties.
@@ -25,9 +23,7 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
         get
         {
             if (instance == null)
-            {
 				instance = new PlayerState2D_OnJump();
-            }
 
             return instance;
         }
@@ -37,39 +33,25 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
     {
         Debug.Log("Entering PlayerState_OnJump.");
 
-        owner.OnGround = false;
-
-        owner.MaxJumpHeight = owner.transform.position.y + owner.jumpHeight;
-      
-        isAscending = true;
-
-		force = 900f;
+		//setup variables for jump
 		cumulativeForce = 0f;
-		baseY = GameObject.Find("MainPlayer").transform.position.y;
+        isAscending = true;
+		force = 900f;
     }
 
     public void Update(PlayerScript owner)
     {
         if (owner.GameScript.StateMachine.IsInState(GameState_OnPlay.Instance))
         {
-
-			KeyboardState currentKeyboardstate = InputManager.Instance.CurrentKeyboardState;
-			KeyboardState previousKeyboardstate = InputManager.Instance.PreviousKeyboardState;
-
-			//MouseState currentMouseState = InputManager.Instance.CurrentMouseState;
-			// MouseState previoustMouseState = InputManager.Instance.PreviousMouseState;
-
+			//add cumulative force up to 'force' variable
             if (isAscending)
             {
-                if (cumulativeForce < force &&
-				    (currentKeyboardstate.IsKeyDown(KeyCode.Space) &&
-				 	previousKeyboardstate.IsKeyDown(KeyCode.Space)))
+				//Input must be held down
+                if (cumulativeForce < force && InputManager.Instance.isKeyHeldDown(KeyCode.Space))
                 {
 					float inputforce = (force - cumulativeForce)/4 ;
 					cumulativeForce += inputforce;
 					owner.Jump(inputforce);
-					if(GameObject.Find("MainPlayer").transform.position.y > topY )
-						topY = GameObject.Find("MainPlayer").transform.position.y;
                 }
                 else
                 {
@@ -78,12 +60,9 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
             }
             else
             {
-
                 // Check if we touched ground.
-                if (owner.OnGround || owner.IsGrounded())
-                {
+                if (owner.IsGrounded())
                     owner.StateMachine.ChangeState(PlayerState2D_Running.Instance);
-                }
             }
         }
     }
@@ -91,6 +70,5 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
     public void Exit(PlayerScript owner)
     {
         Debug.Log("Exiting PlayerState_OnJump.");
-		Debug.Log("height of jump: " + (topY-baseY));
     }
 }

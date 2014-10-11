@@ -1,7 +1,7 @@
 ﻿// ================================================
 // File: InputManager.cs
-// Version: 1.0.1
-// Desc: Singleton. Do not attach to any GameObject.
+// Version: 1.0.2
+// Desc: Singleton class managing Input for keyboard and mouse.
 // ================================================
 
 using UnityEngine;
@@ -86,7 +86,6 @@ public class InputManager
         set { isKeyboardActive = value; }
     }
     
-    
     public void Poll()
     {
         // Store previous States.
@@ -103,6 +102,24 @@ public class InputManager
             GetKeyboardInput();
         }
     }
+
+	public bool isKeyHeldDown(KeyCode key)
+	{
+		return currentKeyboardState.IsKeyDown(key) &&
+			previousKeyboardState.IsKeyDown(key);
+	}
+
+	public bool isKeyJustPress(KeyCode key)
+	{
+		return currentKeyboardState.IsKeyDown(key) &&
+			previousKeyboardState.IsKeyUp(key);
+	}
+
+	public bool isKeyJustReleased(KeyCode key)
+	{
+		return currentKeyboardState.IsKeyUp(key) &&
+			previousKeyboardState.IsKeyDown(key);
+	}
 
      // Ctor.
     private InputManager()
@@ -156,13 +173,6 @@ public class InputManager
             currentMouseState.Buttons[(int)MouseButton.Middle] = false;
         }
 
-        // Get Mouse delta values.
-        //Vector2 delta;
-        //delta.x = Input.GetAxis("Mouse X");
-        //delta.y = Input.GetAxis("Mouse Y");
-
-        //currentMouseState.Delta = delta;
-
         // Get Mouse Position.
         Vector2 position;
 
@@ -170,9 +180,6 @@ public class InputManager
         position.y = Input.mousePosition.y;
 
         currentMouseState.Position = position;
-
-        // Get Wheel Scroll input.
-        //currentMouseState.WheelValue = Input.GetAxis("Mouse ScrollWheel");
     }
 
     private void GetKeyboardInput()

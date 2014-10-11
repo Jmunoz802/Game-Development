@@ -29,39 +29,26 @@ public class GameState_OnPlay : IState<GameScript>
     public void Enter(GameScript owner)
     {
         Debug.Log("Entering GameState_OnPlay.");
-
-        AudioManager.Instance.PlayOneShot(owner.gameObject.audio, "Rain Into Puddle", 0.1f);
-
-        AudioManager.Instance.PlayOneShot(owner.gameObject.audio, "Wind Light", 0.5f);
-
-        AudioManager.Instance.PlayOneShot(owner.gameObject.audio, "Through the gates Equed", 1.0f);
     }
 
     public void Update(GameScript owner)
     {
-        // Check if player is pausing game.
-        if (owner.PlayerScript.IsPausing())
-        {
-            // Change game state to GameState_OnPause.
-            owner.StateMachine.ChangeState(GameState_OnPause.Instance);
-
-            return;
-        }
 
         // Check if player is accessing menu.
         if (owner.PlayerScript.IsAccessingMenu())
         {
             // Change game state to GameState_OnMenu.
             owner.StateMachine.ChangeState(GameState_OnMenu.Instance);
-
             return;
         }
+
+		//Resets run. Currently for Debugging only
+		if (InputManager.Instance.isKeyJustPress(KeyCode.R))
+			Application.LoadLevel("StickmanRun");
     }
 
     public void Exit(GameScript owner)
     {
         Debug.Log("Exiting GameState_OnPlay.");
-
-        owner.gameObject.audio.Stop();
     }
 }

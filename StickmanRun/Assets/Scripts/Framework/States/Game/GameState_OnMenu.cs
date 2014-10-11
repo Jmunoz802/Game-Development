@@ -29,6 +29,8 @@ public class GameState_OnMenu : IState<GameScript>
     public void Enter(GameScript owner)
     {
         Debug.Log("Entering GameState_OnMenu.");
+		Statistics.Instance.pauseTime();
+		owner.PlatformScript.activePlatforms = false;
     }
 
     public void Update(GameScript owner)
@@ -46,5 +48,7 @@ public class GameState_OnMenu : IState<GameScript>
     public void Exit(GameScript owner)
     {
         Debug.Log("Exiting GameState_OnMenu.");
+		Statistics.Instance.unpauseTime();
+		owner.PlatformScript.activePlatforms = true;
     }
 }
