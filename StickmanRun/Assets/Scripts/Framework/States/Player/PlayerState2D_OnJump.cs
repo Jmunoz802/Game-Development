@@ -12,7 +12,7 @@ public class PlayerState2D_OnJump : IState<PlayerScript>
 {
     // Data members.
     private bool isAscending;
-	private float force;// = 700f;
+	private float force;
 	private float cumulativeForce;
 
 	private static PlayerState2D_OnJump instance;

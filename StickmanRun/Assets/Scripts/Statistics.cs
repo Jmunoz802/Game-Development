@@ -14,10 +14,10 @@ public class Statistics{
 	private float StartTime;
 	private float RoundTime;
 	private float PauseTime;
-	private float PlatformCount;
-
 	private float maxTime;
-	private float maxPlCount;
+
+	private int PlatformCount;
+	private int maxPlCount;
 
 	public static Statistics Instance
 	{
@@ -30,7 +30,14 @@ public class Statistics{
 	}
 
 	private Statistics()
-	{}
+	{
+		StartTime = 0f;
+		RoundTime = 0f;
+		PauseTime = 0f;
+		PlatformCount = 0;
+		maxTime = 0f;
+		maxPlCount = 0;
+	}
 
 	public void loadStats()
 	{
@@ -40,20 +47,20 @@ public class Statistics{
 		}
 		if(PlayerPrefs.HasKey("MAXPL"))
 		{
-			maxPlCount = PlayerPrefs.GetFloat("MAXPL");
+			maxPlCount = PlayerPrefs.GetInt("MAXPL");
 		}
 	}
 
 	public void saveStats()
 	{
 		PlayerPrefs.SetFloat("MAXTIME", maxTime);
-		PlayerPrefs.SetFloat("MAXPL", maxPlCount);
+		PlayerPrefs.SetInt("MAXPL", maxPlCount);
 	}
 
 	public void clearStats()
 	{
 		PlayerPrefs.SetFloat("MAXTIME", 0f);
-		PlayerPrefs.SetFloat("MAXPL", 0f);
+		PlayerPrefs.SetInt("MAXPL", 0);
 	}
 
 	public void startTime()

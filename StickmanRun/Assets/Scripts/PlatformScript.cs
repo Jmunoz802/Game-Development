@@ -141,15 +141,6 @@ public class PlatformScript : MonoBehaviour {
 
 	}
 
-	void OnTriggerExit2D(Collider2D other)
-	{
-		if(other.name.CompareTo("MainPlayer") == 0)
-		{
-			activeSpawn = false;
-		}
-		//Debug.LogWarning("platform distance: " + (recentPlatform.transform.position.x - GameObject.Find("MainPlayer").transform.position.x));
-	}
-
 	void updatePlatformSpeed()
 	{
 		float update = (maxPlatformSpeed - 0.04f) / ((1/Time.deltaTime) * timeToMax);

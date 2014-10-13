@@ -44,7 +44,10 @@ public class GameState_OnPlay : IState<GameScript>
 
 		//Resets run. Currently for Debugging only
 		if (InputManager.Instance.isKeyJustPress(KeyCode.R))
+		{
 			Application.LoadLevel("StickmanRun");
+			return;
+		}
     }
 
     public void Exit(GameScript owner)

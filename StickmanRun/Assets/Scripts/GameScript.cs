@@ -13,7 +13,11 @@ public class GameScript : MonoBehaviour
     // Data members.
     private PlayerScript playerScript;
 	private PlatformScript platformScript;
-    private Rect messageRect;
+
+    private Rect menuRect;
+	public GUIStyle menuStyle;
+	private Rect deathRect;
+	public GUIStyle deathStyle;
 
     private StateMachine<GameScript> stateMachine;
 
@@ -63,7 +67,6 @@ public class GameScript : MonoBehaviour
 		{
 			Debug.LogError("GameScript.cs: PlatformScript not found on this object!");
 		}
-		
     }
 
 	// Use this for initialization.
@@ -76,11 +79,16 @@ public class GameScript : MonoBehaviour
         playerScript.StateMachine.ChangeState(PlayerState2D_Running.Instance);
 
         // Assign default values.
-        messageRect.width = 100;
-        messageRect.height = 40;
-        messageRect.x = Screen.width / 2 - messageRect.width / 2;
-        messageRect.y = Screen.height / 2 - messageRect.height / 2;
+        menuRect.width = Screen.width/4;
+		menuRect.height = Screen.height/8;
+        menuRect.x = Screen.width / 2 - menuRect.width / 2;
+        menuRect.y = Screen.height / 2 - menuRect.height / 2;
 
+		deathRect.width = Screen.width/4;
+		deathRect.height = Screen.height/8;
+		deathRect.x = Screen.width / 2 - menuRect.width / 2;
+		deathRect.y = Screen.height / 2 - menuRect.height / 2;
+		
 		//Assign starting speed for platformscript
 		platformScript.PlatformSpeed = 0.09f;
 		platformScript.activePlatforms = true;
@@ -100,11 +108,23 @@ public class GameScript : MonoBehaviour
         stateMachine.Update();
 	}
 
+	void OnTriggerExit2D(Collider2D other)
+	{
+		//Must check whether already in Death state because player contains 2 colliders
+		if(other.gameObject == playerScript.gameObject && !stateMachine.IsInState(GameState_OnDeath.Instance))
+			stateMachine.ChangeState(GameState_OnDeath.Instance);
+	}
+
     private void OnGUI()
     {
         if (stateMachine.IsInState(GameState_OnMenu.Instance))
         {
-            GUI.Box(messageRect, "Menu goes here.");
+            GUI.Box(menuRect, "Menu goes here.", menuStyle);
         }
+		
+		if(stateMachine.IsInState(GameState_OnDeath.Instance))
+		{
+			GUI.Label(menuRect, "You died!", deathStyle);
+		}
     }
 }

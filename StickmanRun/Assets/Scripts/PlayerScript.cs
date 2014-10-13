@@ -1,7 +1,7 @@
 ﻿// ================================================
 // File: PlayerScript.cs
 // Version: 1.0.1
-// Desc: 
+// Desc: script controls player input and interaction with other collider objects
 // ================================================
 
 using UnityEngine;
@@ -9,11 +9,6 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour 
 {
-    // Public Members.
-    public float gravity = 20.0f;
-    public float jumpHeight = 8.0f;
-    public float jumpSpeed = 40.0f;
-
     // Data members.    
 	public GameObject groundChk;
 	public LayerMask mask;
@@ -110,6 +105,12 @@ public class PlayerScript : MonoBehaviour
 		// Get input from InputManager.
 		return InputManager.Instance.isKeyJustPress(KeyCode.Escape);
     }
+
+	public bool IsRestartingGame()
+	{
+		// Get input from InputManager
+		return InputManager.Instance.isKeyJustPress(KeyCode.R);
+	}
 
 	public bool IsGrounded()
 	{
