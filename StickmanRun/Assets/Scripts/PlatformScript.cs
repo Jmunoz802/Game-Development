@@ -93,7 +93,7 @@ public class PlatformScript : MonoBehaviour {
 
 			if(platformSpeed != maxPlatformSpeed)
 			{
-				maxXDistance = ((1/Time.deltaTime) * platformSpeed) - 2f;
+				maxXDistance = ((1/0.02f) * platformSpeed) - 2f;
 				//Debug.Log("Maxdist: " + maxXDistance);
 			}
 		}

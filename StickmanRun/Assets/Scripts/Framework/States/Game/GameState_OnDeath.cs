@@ -39,8 +39,9 @@ public class GameState_OnDeath : IState<GameScript>
 		// Check if player is leaving menu.
 		if (owner.PlayerScript.IsLeavingMenu())
 		{
-			// Change game state back to previous state.
+			//TODO Change scene to menu scene
 			//Application.LoadLevel("MenuScene");
+			Application.Quit();
 			return;
 		} 
 		if (owner.PlayerScript.IsRestartingGame())
