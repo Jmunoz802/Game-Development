@@ -89,6 +89,21 @@ public class Statistics{
 		return RoundTime==maxTime;
 	}
 
+	public string printTime()
+	{
+		int min = Mathf.RoundToInt(RoundTime)/60;
+		int sec = Mathf.RoundToInt(RoundTime)%60;
+
+		string seconds = sec.ToString();
+		if(sec < 10)
+			seconds = string.Concat("0", seconds);
+
+		if(min == 0)
+			return seconds + " seconds!";
+		else
+			return min.ToString() + " minutes and " + seconds + " seconds!";
+	}
+
 	~Statistics(){
 		saveStats();
 		PlayerPrefs.Save();

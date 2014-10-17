@@ -12,10 +12,10 @@ public class PlayerScript : MonoBehaviour
     // Data members.    
 	public GameObject groundChk;
 	public LayerMask mask;
+	public Animator anim;
 
     private GameScript gameScript;
     private StateMachine<PlayerScript> stateMachine;
-	private Animator anim;
 
     // Properties.
     public GameScript GameScript
@@ -33,7 +33,7 @@ public class PlayerScript : MonoBehaviour
     {
 		//Get animator component
 		anim = this.GetComponent<Animator>();
-		anim.SetFloat("Speed", 1.0f);
+		anim.SetFloat("Speed", 0.0f);
 
         // Instantiate StateMachine.
         stateMachine = new StateMachine<PlayerScript>(this);

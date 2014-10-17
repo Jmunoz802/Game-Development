@@ -80,16 +80,21 @@ public class PlatformScript : MonoBehaviour {
 
 		if(activePlatforms)
 		{
-			//Transform Platforms = GameObject.Find("Platforms").transform;;
 			Transform platform;
-			//if(Platforms == null)
-			//	Debug.LogError("platfroms returns null");
 			for(int i = 0; i < transform.childCount; i++)
 			{
 				platform = transform.GetChild(i);
+				if(platform.CompareTag("Reference"))
+					continue;
 				platform.Translate(-platformSpeed, 0, 0);
 				if(platform.position.x < -20f)
 					Destroy(platform.gameObject);
+			}
+
+			if(platformSpeed != maxPlatformSpeed)
+			{
+				maxXDistance = ((1/Time.deltaTime) * platformSpeed) - 2f;
+				//Debug.Log("Maxdist: " + maxXDistance);
 			}
 		}
 
@@ -100,9 +105,6 @@ public class PlatformScript : MonoBehaviour {
 				spawnPlatform();
 			}
 		}
-
-		if(platformSpeed != maxPlatformSpeed)
-			maxXDistance = ((1/Time.deltaTime) * platformSpeed) - 2f;
 
 		updatePlatformSpeed();
 
@@ -119,7 +121,7 @@ public class PlatformScript : MonoBehaviour {
 		tempScale.x = rngScale;
 		newPlat.localScale = tempScale;
 
-		//TODO RNG up/down + distance from previous
+		//RNG up/down + distance from previous
 		float rngY = Random.value * (maxYDistance - minYDistance) + minYDistance;
 		float rngX = Random.value * (maxXDistance - minXDistance) + minXDistance;
 
@@ -128,7 +130,7 @@ public class PlatformScript : MonoBehaviour {
 		Vector3 trans = new Vector3(recentPlatSize + platSize + rngX, rngY, 0);
 		newPlat.Translate(trans);
 
-		//TODO clamp top(max) bottom(min)
+		//clamp top(max) bottom(min)
 		Vector3 clamped = newPlat.position;
 		clamped.y = Mathf.Clamp(clamped.y, minBottom + 2f, maxTop - 2f);
 		newPlat.position = clamped;
@@ -143,7 +145,7 @@ public class PlatformScript : MonoBehaviour {
 
 	void updatePlatformSpeed()
 	{
-		float update = (maxPlatformSpeed - 0.04f) / ((1/Time.deltaTime) * timeToMax);
+		float update = (maxPlatformSpeed - 0.09f) / ((1/Time.deltaTime) * timeToMax);
 		platformSpeed += update;
 		platformSpeed = Mathf.Clamp(platformSpeed, 0.04f, maxPlatformSpeed);
 	}

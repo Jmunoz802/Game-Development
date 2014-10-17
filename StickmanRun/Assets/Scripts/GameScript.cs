@@ -14,6 +14,8 @@ public class GameScript : MonoBehaviour
     private PlayerScript playerScript;
 	private PlatformScript platformScript;
 
+	public float delay = 3.0f;
+
     private Rect menuRect;
 	public GUIStyle menuStyle;
 	private Rect deathRect;
@@ -88,14 +90,9 @@ public class GameScript : MonoBehaviour
 		deathRect.height = Screen.height/8;
 		deathRect.x = Screen.width / 2 - menuRect.width / 2;
 		deathRect.y = Screen.height / 2 - menuRect.height / 2;
-		
-		//Assign starting speed for platformscript
-		platformScript.PlatformSpeed = 0.09f;
-		platformScript.activePlatforms = true;
-		platformScript.activeSpawn = true;
 
-		//Start timer for the round
-		Statistics.Instance.startTime();
+		platformScript.activeSpawn = true;
+		StartCoroutine("delayStart");
 	}
 	
 	// Update is called once per frame.
@@ -106,6 +103,8 @@ public class GameScript : MonoBehaviour
 
         // Update StateMachine.
         stateMachine.Update();
+
+		PlayerScript.anim.speed = platformScript.platformSpeed * 10;
 	}
 
 	void OnTriggerExit2D(Collider2D other)
@@ -113,6 +112,22 @@ public class GameScript : MonoBehaviour
 		//Must check whether already in Death state because player contains 2 colliders
 		if(other.gameObject == playerScript.gameObject && !stateMachine.IsInState(GameState_OnDeath.Instance))
 			stateMachine.ChangeState(GameState_OnDeath.Instance);
+	}
+
+	IEnumerator delayStart(){
+		while(delay > 0){
+			delay -= Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		//Start timer for the round
+		Statistics.Instance.startTime();
+		PlayerScript.anim.SetFloat("Speed", 1f);
+
+		//Assign starting speed for platformscript
+		platformScript.PlatformSpeed = 0.09f;
+		platformScript.activePlatforms = true;
+		yield return null;
 	}
 
     private void OnGUI()
@@ -124,7 +139,9 @@ public class GameScript : MonoBehaviour
 		
 		if(stateMachine.IsInState(GameState_OnDeath.Instance))
 		{
-			GUI.Label(menuRect, "You died!", deathStyle);
+			GUI.Label(menuRect, "You died!\nYou survived for " + 
+			          Statistics.Instance.printTime() + 
+			          "\n\n Press 'R' to retry or Esc to quit", deathStyle);
 		}
     }
 }
