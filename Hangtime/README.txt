@@ -1,3 +1,6 @@
+We applied for publishing on Desura! We're looking forward to hearing back the results of our
+application and hope we will be able to publish our first game to the public!
+
 Hangtime
 --------------------------------------------------------
 This is a 3rd-person platforming adventure game in the setting of a fantasy surrealistic world.
@@ -52,4 +55,4 @@ https://www.youtube.com/watch?v=MDBuhvkByjM
 
 Link to dropbox for Beta build:
 --------------------------------------------------------
-https://www.dropbox.com/s/rrrcjrgy25uiuxa/HangtimeBetaBuild.zip?dl=0
+https://www.dropbox.com/s/fvu1mdy868fbg15/HangTime.zip?dl=0
